@@ -1,0 +1,31 @@
+from tkinter import *
+import cv2 as cv
+from tkinter.filedialog import askopenfilename,asksaveasfilename
+def resize(width=500,height=500):
+    width,height=int(width),int(height)
+    path=askopenfilename()
+    img=cv.imread(path)
+    img=cv.resize(img,(width,height),interpolation=cv.INTER_CUBIC)
+    cv.imwrite(f"{asksaveasfilename()}",img)
+    cv.imshow("YOUR IMAGE",img)
+    cv.waitKey(5000)
+root=Tk()
+root.geometry("300x250")
+root.minsize(300,250)
+root.maxsize(300,250)
+root.title("RESIZING...........")
+a=Label(text="Width")
+a.place(x=50,y=50)
+w=StringVar()
+a=Entry(textvariable=w)
+a.place(x=120,y=50)
+a=Label(text="Height")
+a.place(x=50,y=120)
+h=StringVar()
+a=Entry(textvariable=h)
+a.place(x=120,y=120)
+def resi():
+    resize(w.get(),h.get())
+    quit()
+Button(text="RESIZE",command=resi).place(x=50,y=180)
+root.mainloop()
